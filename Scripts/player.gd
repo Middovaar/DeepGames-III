@@ -7,9 +7,9 @@ signal emoji_collected(emotion: String)
 
 # Map collectible expressions to their input actions.
 const COLLECT_ACTIONS: Dictionary = {
+	"sad": "emoji_sad",
+	"shy": "emoji_shy",
 	"angry": "emoji_angry",
-	"left_tbd": "emoji_left",
-	"right_tbd": "emoji_right",
 }
 
 # Required holding time, in seconds.
@@ -28,8 +28,17 @@ var gap_active: bool = false
 signal expression_changed(emotion: String)
 
 # Store the player's current expression.
-var current_emotion: String = "smile"
+var current_emotion: String = "default"
+# Map each expression to its image.
+const EMOTION_TEXTURES: Dictionary = {
+	"default": preload("res://Assets/Art Assets/Icon/DefaultFace.png"),
+	"smile": preload("res://Assets/Art Assets/Icon/Smile.png"),
+	"sad": preload("res://Assets/Art Assets/Icon/Sad.png"),
+	"shy": preload("res://Assets/Art Assets/Icon/Shy.png"),
+	"angry": preload("res://Assets/Art Assets/Icon/Angry.png"),
+}
 
+@onready var emoji_sprite: Sprite2D = $EmojiSprite
 # Find the Emoji label under Player.
 @onready var emoji_label: Label = $Emoji
 
@@ -37,32 +46,32 @@ var current_emotion: String = "smile"
 func _ready() -> void:
 	set_expression(current_emotion)
 
-
 func _unhandled_key_input(event: InputEvent) -> void:
 	# Reset immediately when the selected collection key is released.
 	var action: String = COLLECT_ACTIONS.get(current_emotion, "")
 
 	if not action.is_empty() and event.is_action_released(action):
 		_reset_charge()
+
 	if event.is_action_pressed("emoji_smile"):
 		set_expression("smile")
 
+	elif event.is_action_pressed("emoji_sad"):
+		set_expression("sad")
+
+	elif event.is_action_pressed("emoji_shy"):
+		set_expression("shy")
+
 	elif event.is_action_pressed("emoji_angry"):
 		set_expression("angry")
-
-	elif event.is_action_pressed("emoji_left"):
-		set_expression("left_tbd")
-
-	elif event.is_action_pressed("emoji_right"):
-		set_expression("right_tbd")
-
-
+		
 func set_expression(emotion: String) -> void:
 	# Remember the expression before updating it.
 	var previous_emotion: String = current_emotion
 
 	current_emotion = emotion
 	emoji_label.text = emotion.to_upper()
+	emoji_sprite.texture = EMOTION_TEXTURES[emotion]
 
 	# Emit the signal only when the expression changes.
 	if current_emotion != previous_emotion:

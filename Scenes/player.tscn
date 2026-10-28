@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://dk5o2pilps76s" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://dc1mtfgjif0tt" path="res://Scenes/head.tscn" id="2_cvnsp"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvnsp"]
+bg_color = Color(0.58622205, 0.6254929, 0.4208773, 1)
+
 [node name="Player" type="Node2D" unique_id=1608736898]
 script = ExtResource("1_v0iea")
 
@@ -15,3 +18,11 @@ text = "SMILE"
 horizontal_alignment = 1
 
 [node name="Head" parent="." unique_id=1490128797 instance=ExtResource("2_cvnsp")]
+
+[node name="CollectBar" type="ProgressBar" parent="." unique_id=269396080]
+offset_left = -90.0
+offset_top = 15.0
+offset_right = 90.0
+offset_bottom = 33.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_cvnsp")
+show_percentage = false

@@ -2,7 +2,7 @@ extends CharacterBody2D
 @onready var timer: Timer = $Timer
 var input_listen: bool = false
 
-@export var speed : float = 10000
+@export var speed : float = 140
 @export var input_time: float = 3
 @export var player: Area2D
 
@@ -11,9 +11,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	# Move Spotlight to the left if passed
-	if SpotlightManager.MOVE: velocity.x = -(speed * delta)
-	else: velocity.x = 0
-	move_and_slide()
+	#if SpotlightManager.MOVE: velocity.x = -(speed * delta)
+	#else: velocity.x = 0
+	#move_and_slide()
 	
 	# Awaiting player input during active timer
 	if input_listen:
@@ -27,7 +27,14 @@ func _process(delta: float) -> void:
 	#if position < SpotlightManager.VECTOR_DESPAWN: 
 	#	position = SpotlightManager.VECTOR_SPAWN
 	#endregion
+func _physics_process(_delta: float) -> void:
+	# Move at a fixed speed measured in pixels per second.
+	if SpotlightManager.MOVE:
+		velocity.x = -speed
+	else:
+		velocity.x = 0.0
 
+	move_and_slide()
 func _on_area_entered(area: Area2D) -> void:
 	SpotlightManager.MOVE = false
 	input_listen = true

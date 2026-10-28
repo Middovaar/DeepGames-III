@@ -1,8 +1,10 @@
 extends CharacterBody2D
 @onready var timer: Timer = $Timer
+var input_listen: bool = false
 
 @export var speed : float = 10000
 @export var input_time: float = 3
+@export var player: Area2D
 
 func _ready() -> void:
 	SpotlightManager.MOVE = true
@@ -22,9 +24,11 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	SpotlightManager.MOVE = false
+	input_listen = true
 	timer.start(input_time)
 
 func on_input_timeout() -> void:
 	# What happens if player fails event
 	SpotlightManager.MOVE = true
+	input_listen = false
 	print_debug("Failed Check")

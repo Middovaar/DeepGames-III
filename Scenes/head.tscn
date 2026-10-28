@@ -3,11 +3,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ogii3"]
 size = Vector2(48, 40)
 
-[node name="Head" type="Node2D" unique_id=216858337]
-
-[node name="Area2D" type="Area2D" parent="." unique_id=1490128797]
+[node name="Head" type="Area2D" unique_id=1490128797]
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=687387809]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=687387809]
 position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_ogii3")

@@ -15,6 +15,12 @@ func _process(delta: float) -> void:
 	else: velocity.x = 0
 	move_and_slide()
 	
+	# Awaiting player input during active timer
+	if input_listen:
+		await Input.is_action_just_pressed("arrow_up")
+		# Insert passed event code
+		move_spotlights()
+	
 	#region - Looping spotlights
 	# Check if spotlight is out of bounds
 	# and reset position if so
@@ -29,6 +35,9 @@ func _on_area_entered(area: Area2D) -> void:
 
 func on_input_timeout() -> void:
 	# What happens if player fails event
+	move_spotlights()
+	print_debug("Failed Check")
+
+func move_spotlights() -> void:
 	SpotlightManager.MOVE = true
 	input_listen = false
-	print_debug("Failed Check")

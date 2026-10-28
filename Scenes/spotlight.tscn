@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://e7be31nl3ter"]
+[gd_scene load_steps=4 format=3 uid="uid://e7be31nl3ter"]
 
 [ext_resource type="Script" uid="uid://6eeeicxyi3pa" path="res://Scripts/spotlight.gd" id="1_p754v"]
 
@@ -8,22 +8,22 @@ radius = 16.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spmcn"]
 size = Vector2(20, 192)
 
-[node name="Spotlight" type="CharacterBody2D" unique_id=1004720547]
+[node name="Spotlight" type="CharacterBody2D"]
 collision_mask = 0
 script = ExtResource("1_p754v")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=931809332]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_p754v")
 
-[node name="SpotlightArea" type="Area2D" parent="." unique_id=974231503]
+[node name="SpotlightArea" type="Area2D" parent="."]
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpotlightArea" unique_id=2050373785]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpotlightArea"]
 position = Vector2(0, 96)
 shape = SubResource("RectangleShape2D_spmcn")
-debug_color = Color(0.9154114, 0.23147029, 0.44930995, 0.41960785)
+debug_color = Color(0.915411, 0.23147, 0.44931, 0.419608)
 
-[node name="Timer" type="Timer" parent="." unique_id=1169182681]
+[node name="Timer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="area_entered" from="SpotlightArea" to="." method="_on_area_entered"]

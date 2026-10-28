@@ -1,12 +1,9 @@
 [gd_scene format=3 uid="uid://dhot8niripfdd"]
 
-[ext_resource type="PackedScene" uid="uid://dc1mtfgjif0tt" path="res://Scenes/head.tscn" id="1_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://l40fg1pnddyn" path="res://Scenes/player.tscn" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://e7be31nl3ter" path="res://Scenes/spotlight.tscn" id="2_wrm1d"]
 
 [node name="Game" type="Node2D" unique_id=21601102]
-
-[node name="Head" parent="." unique_id=216858337 instance=ExtResource("1_qxrlw")]
-position = Vector2(120, 440)
 
 [node name="Spotlight" parent="." unique_id=1004720547 instance=ExtResource("2_wrm1d")]
 position = Vector2(512, 256)
@@ -22,3 +19,6 @@ position = Vector2(1280, 256)
 
 [node name="Spotlight5" parent="." unique_id=611538050 instance=ExtResource("2_wrm1d")]
 position = Vector2(1536, 256)
+
+[node name="Player" parent="." unique_id=1608736898 instance=ExtResource("2_qxrlw")]
+position = Vector2(120, 440)

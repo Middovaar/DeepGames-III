@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://e7be31nl3ter"]
+[gd_scene format=3 uid="uid://e7be31nl3ter"]
 
 [ext_resource type="Script" uid="uid://6eeeicxyi3pa" path="res://Scripts/spotlight.gd" id="1_p754v"]
 

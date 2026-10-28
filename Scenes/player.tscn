@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://l40fg1pnddyn"]
+
+[ext_resource type="Script" uid="uid://dk5o2pilps76s" path="res://Scripts/player.gd" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://dc1mtfgjif0tt" path="res://Scenes/head.tscn" id="2_cvnsp"]
+
+[node name="Player" type="Node2D" unique_id=1608736898]
+script = ExtResource("1_v0iea")
+
+[node name="Emoji" type="Label" parent="." unique_id=605669302]
+offset_left = -160.0
+offset_top = -60.0
+offset_right = 160.0
+theme_override_font_sizes/font_size = 40
+text = "SMILE"
+horizontal_alignment = 1
+
+[node name="Head" parent="." unique_id=1490128797 instance=ExtResource("2_cvnsp")]

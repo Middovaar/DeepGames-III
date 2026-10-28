@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://e7be31nl3ter"]
+
+[ext_resource type="Script" path="res://Scripts/spotlight.gd" id="1_p754v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p754v"]
+radius = 16.0
+
+[node name="Spotlight" type="CharacterBody2D" unique_id=2100227464]
+collision_mask = 0
+script = ExtResource("1_p754v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=831364627]
+shape = SubResource("CircleShape2D_p754v")
+
+[node name="SpotlightArea" type="Area2D" parent="." unique_id=2113918135]
+collision_mask = 2
+
+[node name="Beam" type="Polygon2D" parent="SpotlightArea" unique_id=1141607647]
+polygon = PackedVector2Array(0, 0, -80, 192, 80, 192)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpotlightArea" unique_id=242494464]
+polygon = PackedVector2Array(0, 0, -80, 192, 80, 192)
+
+[node name="Timer" type="Timer" parent="." unique_id=170412843]
+one_shot = true
+
+[connection signal="area_entered" from="SpotlightArea" to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="on_input_timeout"]

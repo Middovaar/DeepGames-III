@@ -1,0 +1,31 @@
+@tool
+extends ColorRect
+
+@export var DepletionThresholdMax:float
+@export var DepletionThresholdMin:float
+
+# Cache the last size to avoid redundant shader updates every frame in the editor
+var _last_size: Vector2 = Vector2.ZERO
+
+func _ready() -> void:
+	update_shader_resolution()
+
+func _process(_delta: float) -> void:
+	# In the editor, dragging handles to resize can bypass signals; 
+	# running this in the editor tool mode ensures real-time updates.
+	if Engine.is_editor_hint():
+		update_shader_resolution()
+
+func update_shader_resolution() -> void:
+	# Ensure the node has a ShaderMaterial assigned
+	if not material is ShaderMaterial:
+		return
+	
+	var current_size := Vector2.ZERO
+	
+	current_size = size
+	
+	# Update shader parameter only when size changes
+	if current_size != Vector2.ZERO and current_size != _last_size:
+		_last_size = current_size
+		(material as ShaderMaterial).set_shader_parameter("sprite_or_color_rect_resolution", current_size)

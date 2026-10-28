@@ -11,12 +11,22 @@ config_version=5
 [application]
 
 config/name="DeepGamesIII"
+run/main_scene="uid://dhot8niripfdd"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SpotlightManager="*uid://cboe4pdcapmug"
 
 [dotnet]
 
 project/assembly_name="DeepGamesIII"
+
+[layer_names]
+
+2d_physics/layer_1="SPOTLIGHT"
+2d_physics/layer_2="PLAYER"
 
 [physics]
 

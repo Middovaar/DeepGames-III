@@ -1,29 +1,38 @@
 [gd_scene format=3 uid="uid://dhot8niripfdd"]
 
-[ext_resource type="PackedScene" uid="uid://l40fg1pnddyn" path="res://Scenes/player.tscn" id="2_qxrlw"]
-[ext_resource type="PackedScene" uid="uid://e7be31nl3ter" path="res://Scenes/spotlight.tscn" id="2_wrm1d"]
+[ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="2_qxrlw"]
+[ext_resource type="PackedScene" path="res://Scenes/spotlight.tscn" id="2_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://btyq00l6o5lvi" path="res://# Bar/Bar.res" id="3_wrm1d"]
 
 [node name="Game" type="Node2D" unique_id=21601102]
 
 [node name="Spotlight" parent="." unique_id=1004720547 instance=ExtResource("2_wrm1d")]
-position = Vector2(512, 249)
+position = Vector2(450, 763)
 speed = 100.0
 
 [node name="Spotlight2" parent="." unique_id=2024161860 instance=ExtResource("2_wrm1d")]
-position = Vector2(872, 249)
+position = Vector2(810, 763)
 speed = 100.0
 
 [node name="Spotlight3" parent="." unique_id=1923524871 instance=ExtResource("2_wrm1d")]
-position = Vector2(1232, 249)
+position = Vector2(1170, 763)
 speed = 100.0
 
 [node name="Spotlight4" parent="." unique_id=668635469 instance=ExtResource("2_wrm1d")]
-position = Vector2(1592, 249)
+position = Vector2(1530, 763)
 speed = 100.0
 
 [node name="Spotlight5" parent="." unique_id=611538050 instance=ExtResource("2_wrm1d")]
-position = Vector2(1952, 249)
+position = Vector2(1890, 763)
 speed = 100.0
 
 [node name="Player" parent="." unique_id=1608736898 instance=ExtResource("2_qxrlw")]
-position = Vector2(120, 440)
+position = Vector2(58, 954)
+
+[node name="Bar" parent="." unique_id=1027405485 instance=ExtResource("3_wrm1d")]
+custom_minimum_size = Vector2(50, 0)
+offset_left = 596.0
+offset_top = 82.0
+offset_right = 646.0
+offset_bottom = 691.27783
+rotation = -1.5707964

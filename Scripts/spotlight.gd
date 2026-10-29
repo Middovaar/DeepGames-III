@@ -19,6 +19,7 @@ func _process(delta: float) -> void:
 	if input_listen:
 		await Input.is_action_just_pressed("arrow_up")
 		# Insert passed event code
+		timer.stop()
 		move_spotlights()
 	
 	#region - Looping spotlights

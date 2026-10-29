@@ -12,88 +12,95 @@
 
 [node name="Game" type="Node2D" unique_id=21601102]
 
-[node name="Spotlight" parent="." unique_id=1004720547 instance=ExtResource("2_wrm1d")]
+[node name="Spotlights" type="Node2D" parent="." unique_id=2057696391]
+position = Vector2(902, 0)
+
+[node name="Spotlight" parent="Spotlights" unique_id=1004720547 instance=ExtResource("2_wrm1d")]
 position = Vector2(450, 763)
 speed = 100.0
 
-[node name="Spotlight2" parent="." unique_id=2024161860 instance=ExtResource("2_wrm1d")]
+[node name="Spotlight2" parent="Spotlights" unique_id=2024161860 instance=ExtResource("2_wrm1d")]
 position = Vector2(810, 763)
 speed = 100.0
 
-[node name="Spotlight3" parent="." unique_id=1923524871 instance=ExtResource("2_wrm1d")]
+[node name="Spotlight3" parent="Spotlights" unique_id=1923524871 instance=ExtResource("2_wrm1d")]
 position = Vector2(1170, 763)
 speed = 100.0
 
-[node name="Spotlight4" parent="." unique_id=668635469 instance=ExtResource("2_wrm1d")]
+[node name="Spotlight4" parent="Spotlights" unique_id=668635469 instance=ExtResource("2_wrm1d")]
 position = Vector2(1530, 763)
 speed = 100.0
 
-[node name="Spotlight5" parent="." unique_id=611538050 instance=ExtResource("2_wrm1d")]
+[node name="Spotlight5" parent="Spotlights" unique_id=611538050 instance=ExtResource("2_wrm1d")]
 position = Vector2(1890, 763)
 speed = 100.0
 
 [node name="Player" parent="." unique_id=1608736898 instance=ExtResource("2_qxrlw")]
-position = Vector2(58, 954)
+position = Vector2(960, 954)
 
-[node name="EmotionInventory" type="Node" parent="." unique_id=222325260 node_paths=PackedStringArray("player")]
-script = ExtResource("4_3dryh")
-player = NodePath("../Player")
-
-[node name="HUD" type="CanvasLayer" parent="." unique_id=1850025663]
-
-[node name="EmotionPanel" type="MarginContainer" parent="HUD" unique_id=1344289874 node_paths=PackedStringArray("inventory")]
-offset_right = 24.0
-offset_bottom = 160.0
+[node name="EmotionPanel" type="MarginContainer" parent="Player" unique_id=1344289874 node_paths=PackedStringArray("inventory")]
+offset_left = -150.0
+offset_top = 40.0
+offset_right = 150.0
+offset_bottom = 88.0
 script = ExtResource("5_v158k")
 inventory = NodePath("../../EmotionInventory")
 
-[node name="Rows" type="VBoxContainer" parent="HUD/EmotionPanel" unique_id=1110100608]
+[node name="Rows" type="HBoxContainer" parent="Player/EmotionPanel" unique_id=465119902]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="SadRow" type="HBoxContainer" parent="Player/EmotionPanel/Rows" unique_id=849680317]
 layout_mode = 2
 
-[node name="SadRow" type="HBoxContainer" parent="HUD/EmotionPanel/Rows" unique_id=849680317]
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="HUD/EmotionPanel/Rows/SadRow" unique_id=51992898]
+[node name="Icon" type="TextureRect" parent="Player/EmotionPanel/Rows/SadRow" unique_id=51992898]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("5_1l0tm")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Count" type="Label" parent="HUD/EmotionPanel/Rows/SadRow" unique_id=741465469]
+[node name="Count" type="Label" parent="Player/EmotionPanel/Rows/SadRow" unique_id=741465469]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "0"
 vertical_alignment = 1
 
-[node name="ShyRow" type="HBoxContainer" parent="HUD/EmotionPanel/Rows" unique_id=1759957758]
+[node name="ShyRow" type="HBoxContainer" parent="Player/EmotionPanel/Rows" unique_id=1759957758]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="HUD/EmotionPanel/Rows/ShyRow" unique_id=2074412047]
+[node name="Icon" type="TextureRect" parent="Player/EmotionPanel/Rows/ShyRow" unique_id=2074412047]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("6_v158k")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Count" type="Label" parent="HUD/EmotionPanel/Rows/ShyRow" unique_id=1486475951]
+[node name="Count" type="Label" parent="Player/EmotionPanel/Rows/ShyRow" unique_id=1486475951]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "0"
 vertical_alignment = 1
 
-[node name="AngryRow" type="HBoxContainer" parent="HUD/EmotionPanel/Rows" unique_id=124675925]
+[node name="AngryRow" type="HBoxContainer" parent="Player/EmotionPanel/Rows" unique_id=124675925]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="HUD/EmotionPanel/Rows/AngryRow" unique_id=1414841814]
+[node name="Icon" type="TextureRect" parent="Player/EmotionPanel/Rows/AngryRow" unique_id=1414841814]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("7_h4fw4")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Count" type="Label" parent="HUD/EmotionPanel/Rows/AngryRow" unique_id=344292906]
+[node name="Count" type="Label" parent="Player/EmotionPanel/Rows/AngryRow" unique_id=344292906]
 layout_mode = 2
+
+[node name="EmotionInventory" type="Node" parent="." unique_id=222325260 node_paths=PackedStringArray("player")]
+script = ExtResource("4_3dryh")
+player = NodePath("../Player")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1850025663]
 
 [node name="PressureBar" type="Control" parent="HUD" unique_id=539969860]
 layout_mode = 3

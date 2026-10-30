@@ -16,6 +16,9 @@ const RESPONSE_ACTIONS: Dictionary = {
 var response_duration: float = 0.6
 
 @export var mistake_damage: int = 35
+# Seconds between consecutive monster spawns.
+@export_range(0.5, 10.0, 0.1)
+var spawn_interval: float = 3.0
 
 var player: Node2D
 var inventory: Node
@@ -26,6 +29,8 @@ var response_time: float = 0.0
 
 var encounter_queue: Array[String] = []
 var current_monster: EmotionMonster
+# Track encounters that have not been resolved.
+var active_monsters: Array[EmotionMonster] = []
 
 @onready var monsters: Node2D = $Monsters
 @onready var spawn_point: Marker2D = $SpawnPoint
@@ -65,19 +70,10 @@ func start(
 	_reset_response()
 
 	print("Side B health: ", health)
-	_spawn_next()
-
+	_spawn_sequence()
 
 func _spawn_next() -> void:
-	if not running:
-		return
-
-	if encounter_queue.is_empty():
-		running = false
-		_reset_response()
-
-		print("Side B survived")
-		side_b_finished.emit(true)
+	if not running or encounter_queue.is_empty():
 		return
 
 	var emotion: String = encounter_queue.pop_front()
@@ -86,16 +82,17 @@ func _spawn_next() -> void:
 	monster.required_emotion = emotion
 	monster.encounter_resolved.connect(_on_encounter_resolved)
 
-	current_monster = monster
+	active_monsters.append(monster)
 	monsters.add_child(monster)
 
 	monster.global_position = spawn_point.global_position
 	monster.start()
 
-
 func _physics_process(delta: float) -> void:
 	if not running:
 		return
+
+	_select_response_target()
 
 	if not is_instance_valid(current_monster):
 		_reset_response()
@@ -163,16 +160,18 @@ func _reset_response(show_bar: bool = false) -> void:
 	response_time = 0.0
 	player.call("set_response_progress", 0.0, show_bar)
 
-
 func _on_encounter_resolved(
 	monster: EmotionMonster,
 	success: bool
 ) -> void:
-	if monster != current_monster:
+	if not running or not active_monsters.has(monster):
 		return
 
-	current_monster = null
-	_reset_response()
+	active_monsters.erase(monster)
+
+	if monster == current_monster:
+		current_monster = null
+		_reset_response()
 
 	if not success:
 		health = maxi(health - mistake_damage, 0)
@@ -183,13 +182,44 @@ func _on_encounter_resolved(
 			running = false
 			print("Side B failed")
 			side_b_finished.emit(false)
-
-			# Pause until the final failure UI is available.
 			get_tree().paused = true
 			return
 
-	# Spawn outside the physics collision callback.
-	call_deferred("_spawn_next")
+	# Finish after all planned encounters have been resolved.
+	if encounter_queue.is_empty() and active_monsters.is_empty():
+		running = false
+		_reset_response()
+
+		print("Side B survived")
+		side_b_finished.emit(true)
 func _update_health_display() -> void:
 	# Update the remaining health.
 	health_bar.value = health
+func _spawn_sequence() -> void:
+	while running and not encounter_queue.is_empty():
+		_spawn_next()
+
+		if encounter_queue.is_empty():
+			return
+
+		# Pause the countdown when the game is paused.
+		await get_tree().create_timer(
+			spawn_interval,
+			false
+		).timeout
+
+func _select_response_target() -> void:
+	var next_monster: EmotionMonster = null
+
+	# Prioritize the earliest unresolved monster in range.
+	for monster in active_monsters:
+		if not is_instance_valid(monster):
+			continue
+
+		if monster.in_response_range and not monster.resolved:
+			next_monster = monster
+			break
+
+	if next_monster != current_monster:
+		current_monster = next_monster
+		_reset_response()

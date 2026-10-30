@@ -1,4 +1,6 @@
 extends Node2D
+# Notify combat systems on every fresh expression input.
+signal emotion_submitted(emotion: String)
 # Notify other systems when gap availability changes.
 signal gap_changed(active: bool)
 
@@ -17,6 +19,10 @@ const COLLECT_ACTIONS: Dictionary = {
 
 var charge_time: float = 0.0
 var collected_this_hold: bool = false
+# Allow only one collection per gap.
+var collected_this_gap: bool = false
+# Enable inventory collection during Side A.
+var collection_enabled: bool = true
 
 @onready var collect_bar: ProgressBar = $CollectBar
 # Allow collection only when no spotlight overlaps the player.
@@ -47,24 +53,27 @@ func _ready() -> void:
 	set_expression(current_emotion)
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	# Reset immediately when the selected collection key is released.
+	# Ignore automatic keyboard repeats while holding a key.
+	if event.is_echo():
+		return
+
+	# Reset immediately when the collection key is released.
 	var action: String = COLLECT_ACTIONS.get(current_emotion, "")
 
 	if not action.is_empty() and event.is_action_released(action):
 		_reset_charge()
 
 	if event.is_action_pressed("emoji_smile"):
-		set_expression("smile")
+		_submit_expression("smile")
 
 	elif event.is_action_pressed("emoji_sad"):
-		set_expression("sad")
+		_submit_expression("sad")
 
 	elif event.is_action_pressed("emoji_shy"):
-		set_expression("shy")
+		_submit_expression("shy")
 
 	elif event.is_action_pressed("emoji_angry"):
-		set_expression("angry")
-		
+		_submit_expression("angry")
 func set_expression(emotion: String) -> void:
 	# Remember the expression before updating it.
 	var previous_emotion: String = current_emotion
@@ -93,8 +102,12 @@ func _physics_process(_delta: float) -> void:
 	# Notify other systems only when the state changes.
 	if new_gap_active == gap_active:
 		return
-
 	gap_active = new_gap_active
+
+	# Unlock collection when a new gap begins.
+	if gap_active:
+		collected_this_gap = false
+
 	gap_changed.emit(gap_active)
 
 	# Temporary output for checking spotlight detection.
@@ -103,6 +116,10 @@ func _physics_process(_delta: float) -> void:
 	else:
 		print("Under spotlight")
 func _process(delta: float) -> void:
+	# Side B controls the shared progress bar while collection is disabled.
+	if not collection_enabled:
+		return
+
 	collect_bar.visible = gap_active
 
 	var action: String = COLLECT_ACTIONS.get(current_emotion, "")
@@ -118,8 +135,8 @@ func _process(delta: float) -> void:
 		collect_bar.value = 0.0
 		return
 
-	# Collect at most one emoji per continuous hold.
-	if collected_this_hold:
+	# Block repeated collection within the same gap.
+	if collected_this_hold or collected_this_gap:
 		return
 
 	charge_time = minf(charge_time + delta, collect_duration)
@@ -127,6 +144,8 @@ func _process(delta: float) -> void:
 
 	if charge_time >= collect_duration:
 		collected_this_hold = true
+		collected_this_gap = true
+
 		emoji_collected.emit(current_emotion)
 		print("Collected emoji: ", current_emotion)
 
@@ -135,3 +154,27 @@ func _reset_charge() -> void:
 	charge_time = 0.0
 	collected_this_hold = false
 	collect_bar.value = 0.0
+func _submit_expression(emotion: String) -> void:
+	# Update the expression and submit this individual input.
+	set_expression(emotion)
+	emotion_submitted.emit(emotion)
+
+	# Temporary output for checking repeated submissions.
+	print("Submitted emotion: ", emotion)
+func set_collection_enabled(enabled: bool) -> void:
+	collection_enabled = enabled
+	_reset_charge()
+
+	collect_bar.visible = enabled and gap_active
+
+
+func set_response_progress(
+	progress: float,
+	show_bar: bool = true
+) -> void:
+	if collection_enabled:
+		return
+
+	# Progress is normalized from zero to one.
+	collect_bar.value = clampf(progress, 0.0, 1.0) * collect_bar.max_value
+	collect_bar.visible = show_bar

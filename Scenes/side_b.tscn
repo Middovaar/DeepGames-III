@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cti6v0e13c8h1"]
+
+[ext_resource type="Script" uid="uid://do37lmbhvt45l" path="res://Scripts/side_b.gd" id="1_lpdsu"]
+
+[node name="SideB" type="Node2D" unique_id=1554443092]
+script = ExtResource("1_lpdsu")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1776043270]
+z_index = -10
+
+[node name="Monsters" type="Node2D" parent="." unique_id=1259720035]
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1254208679]
+position = Vector2(2100, 934)

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c8xdxwyqpb0nu"]
+
+[ext_resource type="Script" uid="uid://b2heqp0tuid22" path="res://Scripts/monster.gd" id="1_hyvb2"]
+[ext_resource type="Texture2D" uid="uid://bwv2gij6fm1xe" path="res://Assets/Art Assets/Icon/DefaultMonster.png" id="1_i44lo"]
+[ext_resource type="Texture2D" uid="uid://eh7k8mcsddqc" path="res://Assets/Art Assets/Icon/FaceWithoutBG2.png" id="2_hyvb2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ujuxu"]
+radius = 140.0
+
+[node name="Monster" type="Node2D" unique_id=1655700113]
+script = ExtResource("1_hyvb2")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1112315049]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_i44lo")
+
+[node name="Face" type="Sprite2D" parent="." unique_id=470950822]
+position = Vector2(0, 10)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_hyvb2")
+
+[node name="ResponseArea" type="Area2D" parent="." unique_id=769652056]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResponseArea" unique_id=170525163]
+shape = SubResource("CircleShape2D_ujuxu")

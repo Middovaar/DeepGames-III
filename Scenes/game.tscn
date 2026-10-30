@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dhot8niripfdd"]
 
+[ext_resource type="Script" uid="uid://bkvctn4cneof3" path="res://Scripts/game.gd" id="1_ldgsr"]
 [ext_resource type="PackedScene" uid="uid://l40fg1pnddyn" path="res://Scenes/player.tscn" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://e7be31nl3ter" path="res://Scenes/spotlight.tscn" id="2_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://btyq00l6o5lvi" path="res://# Bar/Bar.res" id="3_wrm1d"]
@@ -11,9 +12,10 @@
 [ext_resource type="Script" uid="uid://b7rrlsnaxfbk3" path="res://Scripts/pressure_controller.gd" id="9_h4fw4"]
 
 [node name="Game" type="Node2D" unique_id=21601102]
+script = ExtResource("1_ldgsr")
 
 [node name="Spotlights" type="Node2D" parent="." unique_id=2057696391]
-position = Vector2(902, 0)
+position = Vector2(903, -2)
 
 [node name="Spotlight" parent="Spotlights" unique_id=1004720547 instance=ExtResource("2_wrm1d")]
 position = Vector2(450, 763)

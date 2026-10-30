@@ -11,6 +11,8 @@ signal pressure_failed
 
 var pressure: float = 0.0
 var failed: bool = false
+# Enable pressure detection only during Side A.
+var enabled: bool = true
 var player_head: Area2D
 
 # Remember which spotlights have already caused a penalty.
@@ -48,7 +50,7 @@ func _on_expression_changed(emotion: String) -> void:
 
 
 func _check_spotlights(emotion: String) -> void:
-	if failed or emotion == "smile":
+	if not enabled or failed or emotion == "smile":
 		return
 
 	for area: Area2D in player_head.get_overlapping_areas():

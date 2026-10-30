@@ -29,7 +29,7 @@ var current_monster: EmotionMonster
 
 @onready var monsters: Node2D = $Monsters
 @onready var spawn_point: Marker2D = $SpawnPoint
-
+@onready var health_bar: ProgressBar = $HUD/HealthBar
 
 func start(
 	player_node: Node2D,
@@ -48,6 +48,7 @@ func start(
 
 	encounter_queue.assign(emotions)
 	health = 100
+	_update_health_display()
 	running = true
 
 	player.call("set_collection_enabled", false)
@@ -175,6 +176,7 @@ func _on_encounter_resolved(
 
 	if not success:
 		health = maxi(health - mistake_damage, 0)
+		_update_health_display()
 		print("Side B health: ", health)
 
 		if health <= 0:
@@ -188,3 +190,6 @@ func _on_encounter_resolved(
 
 	# Spawn outside the physics collision callback.
 	call_deferred("_spawn_next")
+func _update_health_display() -> void:
+	# Update the remaining health.
+	health_bar.value = health

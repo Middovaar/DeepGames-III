@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://do37lmbhvt45l" path="res://Scripts/side_b.gd" id="1_lpdsu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lpdsu"]
+bg_color = Color(1, 0.08235294, 0.20784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a53ru"]
+bg_color = Color(0.19240934, 0.70875543, 0.38124022, 1)
+
 [node name="SideB" type="Node2D" unique_id=1554443092]
 script = ExtResource("1_lpdsu")
 
@@ -12,3 +18,15 @@ z_index = -10
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=1254208679]
 position = Vector2(2100, 934)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=2009278795]
+
+[node name="HealthBar" type="ProgressBar" parent="HUD" unique_id=1487755105]
+offset_left = 660.0
+offset_top = 40.0
+offset_right = 1160.0
+offset_bottom = 80.0
+theme_override_styles/background = SubResource("StyleBoxFlat_lpdsu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_a53ru")
+value = 100.0
+show_percentage = false

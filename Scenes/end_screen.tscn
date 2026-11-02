@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://bw1jdd4yuyled" path="res://Assets/Art Assets/BackGround/SideABG_Curtain.png" id="2_gdxnu"]
 
 [sub_resource type="FontFile" id="FontFile_gdxnu"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/variation_coordinates = {}
 cache/0/face_index = 0
 cache/0/embolden = 0.0
@@ -66,10 +69,10 @@ stretch_mode = 5
 
 [node name="RestartButton" type="Button" parent="Panel" unique_id=1449111945]
 layout_mode = 0
-offset_left = 1486.0
-offset_top = 887.0
-offset_right = 1726.0
-offset_bottom = 947.0
+offset_left = 1568.0
+offset_top = 939.0
+offset_right = 1808.0
+offset_bottom = 999.0
 theme_override_fonts/font = SubResource("FontFile_gdxnu")
 theme_override_font_sizes/font_size = 28
 text = "Restart"

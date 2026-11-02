@@ -115,9 +115,9 @@ player = NodePath("../Player")
 [node name="PressureBar" type="Control" parent="HUD" unique_id=539969860]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1800.0
+offset_left = 1650.0
 offset_top = 200.0
-offset_right = 1850.0
+offset_right = 1700.0
 offset_bottom = 750.0
 
 [node name="Background" type="ColorRect" parent="HUD/PressureBar" unique_id=931243290]

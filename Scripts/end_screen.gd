@@ -1,10 +1,10 @@
 extends CanvasLayer
-
 const RESULT_IMAGES: Dictionary = {
 	"lose_a": preload("res://Assets/Art Assets/UI/LoseSceneA.png"),
-	"lose_b": preload("res://Assets/Art Assets/UI/LoseSceneB.png"),
+	"lose_b": preload("res://Assets/Art Assets/UI/LoseSceneB_Transparent.png"),
 	"win": preload("res://Assets/Art Assets/UI/WinScene.png"),
 }
+
 const RESULT_BACKGROUNDS: Dictionary = {
 	"lose_a": preload("res://Assets/Art Assets/BackGround/SideABG_BGColor.png"),
 	"lose_b": preload("res://Assets/Art Assets/BackGround/SideBBG_Grey.png"),

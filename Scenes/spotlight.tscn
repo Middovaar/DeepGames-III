@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6eeeicxyi3pa" path="res://Scripts/spotlight.gd" id="1_p754v"]
 [ext_resource type="Texture2D" uid="uid://b071wqon2dq4i" path="res://Assets/Art Assets/Icon/FaceWithoutBG1.png" id="2_4soar"]
+[ext_resource type="Texture2D" uid="uid://drkrg0rb0th0h" path="res://Assets/Art Assets/Icon/Spotlights_Transparent.png" id="3_nkc8l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p754v"]
 radius = 16.0
@@ -27,6 +28,11 @@ texture = ExtResource("2_4soar")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpotlightArea" unique_id=242494464]
 visible = false
 polygon = PackedVector2Array(0, 0, -80, 192, 80, 192)
+
+[node name="head" type="Sprite2D" parent="SpotlightArea" unique_id=1228270241]
+position = Vector2(0, -24)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_nkc8l")
 
 [node name="Timer" type="Timer" parent="." unique_id=170412843]
 one_shot = true

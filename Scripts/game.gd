@@ -27,9 +27,14 @@ var seen_spotlights: Dictionary = {}
 @onready var spotlights: Node2D = $Spotlights
 @onready var pressure_controller: Node = $PressureController
 @onready var pressure_display: Control = $HUD/PressureBar
-
+@onready var end_screen: CanvasLayer = $EndScreen
 
 func _ready() -> void:
+	pressure_controller.connect(
+		"pressure_failed",
+		_on_side_a_failed
+	)
+
 	player.call("set_collection_enabled", false)
 
 	# Register the spotlights included in this round.
@@ -139,6 +144,7 @@ func _start_side_b() -> void:
 	spotlights.process_mode = Node.PROCESS_MODE_DISABLED
 	spotlights.hide()
 	pressure_display.hide()
+	$BackgroundA.hide()
 
 	var side_b := SIDE_B_SCENE.instantiate() as Node2D
 	side_b.connect("side_b_finished", _on_side_b_finished)
@@ -153,9 +159,26 @@ func _start_side_b() -> void:
 
 
 func _on_side_b_finished(success: bool) -> void:
-	phase = Phase.FINISHED
+	if phase != Phase.SIDE_B:
+		return
 
 	if success:
-		print("Round completed")
+		_show_end_screen("win")
 	else:
-		print("Round failed")
+		_show_end_screen("lose_b")
+func _on_side_a_failed() -> void:
+	if phase != Phase.SIDE_A:
+		return
+
+	_show_end_screen("lose_a")
+
+
+func _show_end_screen(result: String) -> void:
+	if phase == Phase.FINISHED:
+		return
+
+	phase = Phase.FINISHED
+	pressure_controller.set("enabled", false)
+	player.call("set_collection_enabled", false)
+
+	end_screen.call("show_result", result)

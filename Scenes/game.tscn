@@ -10,9 +10,17 @@
 [ext_resource type="Texture2D" uid="uid://cuvvxd6gtrhjl" path="res://Assets/Art Assets/Icon/Shy.png" id="6_v158k"]
 [ext_resource type="Texture2D" uid="uid://dflq146q8y0g0" path="res://Assets/Art Assets/Icon/Angry.png" id="7_h4fw4"]
 [ext_resource type="Script" uid="uid://b7rrlsnaxfbk3" path="res://Scripts/pressure_controller.gd" id="9_h4fw4"]
+[ext_resource type="Texture2D" uid="uid://d000vmsnhgw5w" path="res://Assets/Art Assets/BackGround/SideABG_LayeredPreview.png" id="11_o5yvi"]
+[ext_resource type="PackedScene" uid="uid://c88qs0qmh5ruw" path="res://Scenes/end_screen.tscn" id="12_rku1e"]
 
 [node name="Game" type="Node2D" unique_id=21601102]
 script = ExtResource("1_ldgsr")
+
+[node name="BackgroundA" type="Sprite2D" parent="." unique_id=1399759608]
+z_index = -20
+position = Vector2(960, 540)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_o5yvi")
 
 [node name="Spotlights" type="Node2D" parent="." unique_id=2057696391]
 position = Vector2(903, -2)
@@ -136,3 +144,5 @@ rotation = -1.5707964
 script = ExtResource("9_h4fw4")
 player = NodePath("../Player")
 pressure_bar = NodePath("../HUD/PressureBar/Bar")
+
+[node name="EndScreen" parent="." unique_id=743866174 instance=ExtResource("12_rku1e")]

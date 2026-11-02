@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://c88qs0qmh5ruw"]
+
+[ext_resource type="Script" uid="uid://qv6hfal0p5ws" path="res://Scripts/end_screen.gd" id="1_1gwaw"]
+[ext_resource type="Texture2D" uid="uid://1iwb7ick457v" path="res://Assets/Art Assets/UI/LoseSceneA.png" id="2_bhpww"]
+[ext_resource type="Texture2D" uid="uid://bw1jdd4yuyled" path="res://Assets/Art Assets/BackGround/SideABG_Curtain.png" id="2_gdxnu"]
+
+[sub_resource type="FontFile" id="FontFile_gdxnu"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/28/0/ascent = 0.0
+cache/0/28/0/descent = 0.0
+cache/0/28/0/underline_position = 0.0
+cache/0/28/0/underline_thickness = 0.0
+cache/0/28/0/scale = 1.0
+
+[node name="EndScreen" type="CanvasLayer" unique_id=743866174]
+process_mode = 3
+layer = 10
+script = ExtResource("1_1gwaw")
+
+[node name="Panel" type="Control" parent="." unique_id=98733173]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Background" type="ColorRect" parent="Panel" unique_id=768342657]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="BackgroundImage" type="TextureRect" parent="Panel" unique_id=112696628]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Curtain" type="TextureRect" parent="Panel" unique_id=1202830526]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_gdxnu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Artwork" type="TextureRect" parent="Panel" unique_id=1170007561]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_bhpww")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RestartButton" type="Button" parent="Panel" unique_id=1449111945]
+layout_mode = 0
+offset_left = 1486.0
+offset_top = 887.0
+offset_right = 1726.0
+offset_bottom = 947.0
+theme_override_fonts/font = SubResource("FontFile_gdxnu")
+theme_override_font_sizes/font_size = 28
+text = "Restart"
